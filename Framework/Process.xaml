@@ -9,6 +9,8 @@
     <x:Property Name="in_date_JJMMYYYY" Type="InArgument(x:String)" />
     <x:Property Name="in_Chemin_Template" Type="InArgument(x:String)" />
     <x:Property Name="in_Chemin_Archive_Kondor" Type="InArgument(x:String)" />
+    <x:Property Name="in_NomFichier_Liquidity" Type="InArgument(x:String)" />
+    <x:Property Name="in_chemin_Archive_Liquidity" Type="InArgument(x:String)" />
   </x:Members>
   <this:Process.in_Chemin_Template>
     <InArgument x:TypeArguments="x:String" />
@@ -138,9 +140,10 @@
       <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
       <AssemblyReference>UiPath.Database.Activities</AssemblyReference>
       <AssemblyReference>UiPath.Mail.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Linq.Async.Queryable</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="1836,1185" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="1836,5183" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="ui:DatabaseConnection" Name="Database_Connexion" />
     </Sequence.Variables>
@@ -150,22 +153,22 @@
         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:LogMessage DisplayName="Log Message Process Start" sap:VirtualizedContainerService.HintSize="416,173" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Started Process&quot;]" />
-    <ui:CreateDirectory ContinueOnError="{x:Null}" Output="{x:Null}" DisplayName="Create Folder" sap:VirtualizedContainerService.HintSize="416,112" sap2010:WorkflowViewState.IdRef="CreateDirectory_1" Path="[in_Chemin_Archive.TrimEnd(&quot;\&quot;c) + &quot;\&quot; + in_date_JJMMYYYY]" />
-    <ui:CopyFile ContinueOnError="{x:Null}" Destination="[in_Chemin_Archive.TrimEnd(&quot;\&quot;c) + &quot;\&quot; + in_date_JJMMYYYY + &quot;\Rapport &quot; + in_date_JJMMYYYY + &quot;.xlsx&quot;]" DisplayName="Copy File" sap:VirtualizedContainerService.HintSize="416,186" sap2010:WorkflowViewState.IdRef="CopyFile_1" Overwrite="True" Path="[in_Chemin_Template]" />
-    <Delay Duration="00:00:01" sap:VirtualizedContainerService.HintSize="416,122" sap2010:WorkflowViewState.IdRef="Delay_1" />
-    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Connexion_DataBase - Invoke Workflow File (Connexion_DataBase.xaml)" sap:VirtualizedContainerService.HintSize="416,177" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Connexion_DataBase.xaml">
+    <ui:LogMessage DisplayName="Log Message Process Start" sap:VirtualizedContainerService.HintSize="574,173" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Started Process&quot;]" />
+    <ui:CreateDirectory ContinueOnError="{x:Null}" Output="{x:Null}" DisplayName="Create Folder" sap:VirtualizedContainerService.HintSize="574,112" sap2010:WorkflowViewState.IdRef="CreateDirectory_1" Path="[in_Chemin_Archive.TrimEnd(&quot;\&quot;c) + &quot;\&quot; + in_date_JJMMYYYY]" />
+    <ui:CopyFile ContinueOnError="{x:Null}" Destination="[in_Chemin_Archive.TrimEnd(&quot;\&quot;c) + &quot;\&quot; + in_date_JJMMYYYY + &quot;\Rapport &quot; + in_date_JJMMYYYY + &quot;.xlsx&quot;]" DisplayName="Copy File" sap:VirtualizedContainerService.HintSize="574,186" sap2010:WorkflowViewState.IdRef="CopyFile_1" Overwrite="True" Path="[in_Chemin_Template]" />
+    <Delay Duration="00:00:01" sap:VirtualizedContainerService.HintSize="574,122" sap2010:WorkflowViewState.IdRef="Delay_1" />
+    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Connexion_DataBase - Invoke Workflow File (Connexion_DataBase.xaml)" sap:VirtualizedContainerService.HintSize="574,177" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Connexion_DataBase.xaml">
       <ui:InvokeWorkflowFile.Arguments>
         <OutArgument x:TypeArguments="ui:DatabaseConnection" x:Key="out_DataBaseConnection">[Database_Connexion]</OutArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
-    <ui:ExcelApplicationScope Password="{x:Null}" SensitivityLabel="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="416,57" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" InstanceCachePeriod="3000" SensitivityOperation="None" WorkbookPath="[in_Chemin_Archive.TrimEnd(&quot;\&quot;c) + &quot;\&quot; + in_date_JJMMYYYY + &quot;\Rapport &quot; + in_date_JJMMYYYY + &quot;.xlsx&quot;]">
+    <ui:ExcelApplicationScope Password="{x:Null}" SensitivityLabel="{x:Null}" DisplayName="Excel Application Scope" sap:VirtualizedContainerService.HintSize="574,4055" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" InstanceCachePeriod="3000" SensitivityOperation="None" WorkbookPath="[in_Chemin_Archive.TrimEnd(&quot;\&quot;c) + &quot;\&quot; + in_date_JJMMYYYY + &quot;\Rapport &quot; + in_date_JJMMYYYY + &quot;.xlsx&quot;]">
       <ui:ExcelApplicationScope.Body>
         <ActivityAction x:TypeArguments="ui:WorkbookApplication">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="ui:WorkbookApplication" Name="ExcelWorkbookScope" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="504,2601" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="540,3913" sap2010:WorkflowViewState.IdRef="Sequence_3">
             <Sequence.Variables>
               <Variable x:TypeArguments="x:Boolean" Name="Fichier_Kondor_Existe" />
               <Variable x:TypeArguments="s:String[]" Name="File_Log" />
@@ -182,13 +185,13 @@
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:ForEach x:TypeArguments="x:String" CurrentIndex="[CurrentIndex]" DisplayName="For Each currentText" sap:VirtualizedContainerService.HintSize="470,1457" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[in_NomFichier.split(&quot;,&quot;c)]">
+            <ui:ForEach x:TypeArguments="x:String" CurrentIndex="[CurrentIndex]" DisplayName="For Each currentText" sap:VirtualizedContainerService.HintSize="506,1874" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[in_NomFichier.split(&quot;,&quot;c)]">
               <ui:ForEach.Body>
                 <ActivityAction x:TypeArguments="x:String">
                   <ActivityAction.Argument>
                     <DelegateInArgument x:TypeArguments="x:String" Name="currentText" />
                   </ActivityAction.Argument>
-                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="468,1327" sap2010:WorkflowViewState.IdRef="Sequence_2">
+                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="504,1744" sap2010:WorkflowViewState.IdRef="Sequence_2">
                     <Sequence.Variables>
                       <Variable x:TypeArguments="x:String" Name="Text_File" />
                       <Variable x:TypeArguments="x:String" Name="Statut_ExistenceFichierKondor" />
@@ -202,8 +205,8 @@
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
-                    <ui:FileExistsX DisplayName="File Exists" Exists="[Fichier_Kondor_Existe]" sap:VirtualizedContainerService.HintSize="434,165" sap2010:WorkflowViewState.IdRef="FileExistsX_1" Path="[in_Chemin_Archive_Kondor.TrimEnd(&quot;\&quot;c) + &quot;\&quot; + in_date_JJMMYYYY + &quot;\&quot; +currentText + &quot;_TMP_HD.bcp&quot;]" />
-                    <Assign sap:VirtualizedContainerService.HintSize="434,114" sap2010:WorkflowViewState.IdRef="Assign_1">
+                    <ui:FileExistsX DisplayName="File Exists" Exists="[Fichier_Kondor_Existe]" sap:VirtualizedContainerService.HintSize="470,165" sap2010:WorkflowViewState.IdRef="FileExistsX_1" Path="[in_Chemin_Archive_Kondor.TrimEnd(&quot;\&quot;c) + &quot;\&quot; + in_date_JJMMYYYY + &quot;\&quot; +currentText + &quot;_TMP_HD.bcp&quot;]" />
+                    <Assign sap:VirtualizedContainerService.HintSize="470,114" sap2010:WorkflowViewState.IdRef="Assign_1">
                       <Assign.To>
                         <OutArgument x:TypeArguments="x:String">[Statut_ExistenceFichierKondor]</OutArgument>
                       </Assign.To>
@@ -217,22 +220,62 @@
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
                     </Assign>
-                    <ui:ReadTextFile File="{x:Null}" Content="[Text_File]" DisplayName="Read Text File" FileName="[in_Chemin_Archive_Kondor.TrimEnd(&quot;\&quot;c) + &quot;\&quot; + in_date_JJMMYYYY + &quot;\&quot; +currentText + &quot;_TMP_HD.bcp&quot;]" sap:VirtualizedContainerService.HintSize="434,112" sap2010:WorkflowViewState.IdRef="ReadTextFile_1" />
-                    <Assign sap:VirtualizedContainerService.HintSize="434,114" sap2010:WorkflowViewState.IdRef="Assign_2">
-                      <Assign.To>
-                        <OutArgument x:TypeArguments="x:String">[Statut_NombreLigne_FichierKondor]</OutArgument>
-                      </Assign.To>
-                      <Assign.Value>
-                        <InArgument x:TypeArguments="x:String">[Text_File.trim.split(vbNewLine.ToCharArray).count.ToString]</InArgument>
-                      </Assign.Value>
+                    <If Condition="[Fichier_Kondor_Existe]" sap:VirtualizedContainerService.HintSize="470,523" sap2010:WorkflowViewState.IdRef="If_1">
                       <sap:WorkflowViewStateService.ViewState>
                         <scg:Dictionary x:TypeArguments="x:String, x:Object">
                           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           <x:Boolean x:Key="IsPinned">False</x:Boolean>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
-                    </Assign>
-                    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Requete_BaseDonnees - Invoke Workflow File (Requete_BaseDonnees.xaml)" sap:VirtualizedContainerService.HintSize="434,177" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Requete_BaseDonnees.xaml">
+                      <If.Then>
+                        <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="468,220" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:ReadTextFile File="{x:Null}" Content="[Text_File]" DisplayName="Read Text File" FileName="[in_Chemin_Archive_Kondor.TrimEnd(&quot;\&quot;c) + &quot;\&quot; + in_date_JJMMYYYY + &quot;\&quot; +currentText + &quot;_TMP_HD.bcp&quot;]" sap:VirtualizedContainerService.HintSize="434,112" sap2010:WorkflowViewState.IdRef="ReadTextFile_1" />
+                          <Assign sap:VirtualizedContainerService.HintSize="434,48" sap2010:WorkflowViewState.IdRef="Assign_2">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="x:String">[Statut_NombreLigne_FichierKondor]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="x:String">[if(String.IsNullOrEmpty(Text_File.trim),"0",Text_File.trim.split(vbNewLine.ToCharArray).count.ToString)]</InArgument>
+                            </Assign.Value>
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </Assign>
+                        </Sequence>
+                      </If.Then>
+                      <If.Else>
+                        <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="468,165" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <Assign sap:VirtualizedContainerService.HintSize="434,105" sap2010:WorkflowViewState.IdRef="Assign_16">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="x:String">[Statut_NombreLigne_FichierKondor]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="x:String">0</InArgument>
+                            </Assign.Value>
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </Assign>
+                        </Sequence>
+                      </If.Else>
+                    </If>
+                    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Requete_BaseDonnees - Invoke Workflow File (Requete_BaseDonnees.xaml)" sap:VirtualizedContainerService.HintSize="470,177" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Requete_BaseDonnees.xaml">
                       <ui:InvokeWorkflowFile.Arguments>
                         <InArgument x:TypeArguments="x:String" x:Key="in_DataBase_Table">[in_Config(currentText).ToString]</InArgument>
                         <OutArgument x:TypeArguments="x:Int32" x:Key="out_Count">[NombreLigne_Table]</OutArgument>
@@ -240,7 +283,7 @@
                         <InArgument x:TypeArguments="x:String" x:Key="in_Date_JJMMYYYY">[in_Date_JJ_MM_YYYY]</InArgument>
                       </ui:InvokeWorkflowFile.Arguments>
                     </ui:InvokeWorkflowFile>
-                    <Assign sap:VirtualizedContainerService.HintSize="434,114" sap2010:WorkflowViewState.IdRef="Assign_3">
+                    <Assign sap:VirtualizedContainerService.HintSize="470,114" sap2010:WorkflowViewState.IdRef="Assign_3">
                       <Assign.To>
                         <OutArgument x:TypeArguments="x:String">[Statut_NombreLigne_Database]</OutArgument>
                       </Assign.To>
@@ -254,10 +297,11 @@
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
                     </Assign>
-                    <ui:ExcelLookUpRange DisplayName="Lookup Range" sap:VirtualizedContainerService.HintSize="434,120" sap2010:WorkflowViewState.IdRef="ExcelLookUpRange_1" Range="D1:D100" Result="[Position_Text]" SheetName="Rapport" Value="[currentText]" />
-                    <ui:ExcelWriteCell Cell="[&quot;E&quot; + (Cint(Position_Text.replace(&quot;D&quot;,&quot;&quot;))).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="434,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_1" SheetName="Rapport" Text="[Statut_ExistenceFichierKondor]" />
-                    <ui:ExcelWriteCell Cell="[&quot;F&quot; + (Cint(Position_Text.replace(&quot;D&quot;,&quot;&quot;))).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="434,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_2" SheetName="Rapport" Text="[Statut_NombreLigne_FichierKondor]" />
-                    <ui:ExcelWriteCell Cell="[&quot;G&quot; + (Cint(Position_Text.replace(&quot;D&quot;,&quot;&quot;))).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="434,111" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_3" SheetName="Rapport" Text="[Statut_NombreLigne_Database]" />
+                    <ui:ExcelLookUpRange DisplayName="Lookup Range" sap:VirtualizedContainerService.HintSize="470,120" sap2010:WorkflowViewState.IdRef="ExcelLookUpRange_1" Range="D1:D100" Result="[Position_Text]" SheetName="Rapport" Value="[currentText]" />
+                    <ui:ExcelWriteCell Cell="[&quot;E&quot; + (Cint(Position_Text.replace(&quot;D&quot;,&quot;&quot;))).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="470,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_1" SheetName="Rapport" Text="[Statut_ExistenceFichierKondor]" />
+                    <ui:ExcelWriteCell Cell="[&quot;F&quot; + (Cint(Position_Text.replace(&quot;D&quot;,&quot;&quot;))).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="470,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_2" SheetName="Rapport" Text="[Statut_NombreLigne_FichierKondor]" />
+                    <ui:ExcelWriteCell Cell="[&quot;G&quot; + (Cint(Position_Text.replace(&quot;D&quot;,&quot;&quot;))).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="470,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_3" SheetName="Rapport" Text="[Statut_NombreLigne_Database]" />
+                    <ui:ExcelWriteCell Cell="[&quot;H&quot; + (Cint(Position_Text.replace(&quot;D&quot;,&quot;&quot;))).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="470,111" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_5" SheetName="Rapport" Text="[if(Statut_NombreLigne_FichierKondor=Statut_NombreLigne_Database and not (NombreLigne_Table = 0),&quot;OK&quot;,&quot;NOK&quot;)]" />
                   </Sequence>
                 </ActivityAction>
               </ui:ForEach.Body>
@@ -268,107 +312,258 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </ui:ForEach>
-            <Assign sap:VirtualizedContainerService.HintSize="470,114" sap2010:WorkflowViewState.IdRef="Assign_8">
-              <Assign.To>
-                <OutArgument x:TypeArguments="s:String[]">[File_Log]</OutArgument>
-              </Assign.To>
-              <Assign.Value>
-                <InArgument x:TypeArguments="s:String[]" xml:space="preserve">[Directory.GetFiles(in_chemin_Log.TrimEnd("\"c) +"\"  + in_date_JJMMYYYY  ,"*").OrderByDescending(Function(d) New FileInfo(d).CreationTime).Take(2).toArray()]</InArgument>
-              </Assign.Value>
+            <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="506,57" sap2010:WorkflowViewState.IdRef="CommentOut_1">
+              <ui:CommentOut.Body>
+                <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="468,900" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <Assign sap:VirtualizedContainerService.HintSize="434,114" sap2010:WorkflowViewState.IdRef="Assign_8">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="s:String[]">[File_Log]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="s:String[]" xml:space="preserve">[Directory.GetFiles(in_chemin_Log.TrimEnd("\"c) +"\"  + in_date_JJMMYYYY  ,"*").OrderByDescending(Function(d) New FileInfo(d).CreationTime).Take(2).toArray()]</InArgument>
+                    </Assign.Value>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </Assign>
+                  <ui:ReadTextFile File="{x:Null}" Content="[Text1]" DisplayName="Read Text File" FileName="[File_Log(0)]" sap:VirtualizedContainerService.HintSize="434,112" sap2010:WorkflowViewState.IdRef="ReadTextFile_4">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:ReadTextFile>
+                  <ui:ReadTextFile File="{x:Null}" Content="[text2]" DisplayName="Read Text File" FileName="[File_Log(1)]" sap:VirtualizedContainerService.HintSize="434,112" sap2010:WorkflowViewState.IdRef="ReadTextFile_5">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:ReadTextFile>
+                  <Assign sap:VirtualizedContainerService.HintSize="434,114" sap2010:WorkflowViewState.IdRef="Assign_9">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Int32">[NombreLigne_File1]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Int32">[Text1.split(vbNewLine.ToCharArray).Count]</InArgument>
+                    </Assign.Value>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </Assign>
+                  <Assign sap:VirtualizedContainerService.HintSize="434,114" sap2010:WorkflowViewState.IdRef="Assign_10">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:Int32">[NombreLigne_File2]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:Int32">[Text2.split(vbNewLine.ToCharArray).Count]</InArgument>
+                    </Assign.Value>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </Assign>
+                  <Assign sap:VirtualizedContainerService.HintSize="434,114" sap2010:WorkflowViewState.IdRef="Assign_11">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[Selected_File]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[if(NombreLigne_File1&gt;NombreLigne_File2,File_Log(0),File_Log(1))]</InArgument>
+                    </Assign.Value>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </Assign>
+                  <ui:ReadTextFile File="{x:Null}" Content="[Log_Text]" DisplayName="Read Text File" FileName="[Selected_File]" sap:VirtualizedContainerService.HintSize="434,112" sap2010:WorkflowViewState.IdRef="ReadTextFile_6" />
+                  <ui:ForEach x:TypeArguments="x:String" CurrentIndex="[CurrentIndex]" DisplayName="For Each currentText" sap:VirtualizedContainerService.HintSize="434,48" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[in_NomFichier.split(&quot;,&quot;c)]">
+                    <ui:ForEach.Body>
+                      <ActivityAction x:TypeArguments="x:String">
+                        <ActivityAction.Argument>
+                          <DelegateInArgument x:TypeArguments="x:String" Name="currentText" />
+                        </ActivityAction.Argument>
+                        <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="416,171" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:ExcelWriteCell Cell="[&quot;H&quot; + (6+CurrentIndex).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="382,111" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_4" SheetName="Rapport" Text="[If(If(String.IsNullOrEmpty(Log_Text.ToLower.split(&quot;starting copy...&quot;)(0).Trim),Log_Text.ToLower.split(&quot;starting copy...&quot;).Skip(1),Log_Text.ToLower.split(&quot;starting copy...&quot;))(CurrentIndex).split(vbnewline.ToCharArray).count=6,&quot;OK&quot;,&quot;NOK&quot;)]" />
+                        </Sequence>
+                      </ActivityAction>
+                    </ui:ForEach.Body>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:ForEach>
+                </Sequence>
+              </ui:CommentOut.Body>
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
                   <x:Boolean x:Key="IsPinned">False</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-            </Assign>
-            <ui:ReadTextFile File="{x:Null}" Content="[Text1]" DisplayName="Read Text File" FileName="[File_Log(0)]" sap:VirtualizedContainerService.HintSize="470,112" sap2010:WorkflowViewState.IdRef="ReadTextFile_4">
-              <sap:WorkflowViewStateService.ViewState>
-                <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                </scg:Dictionary>
-              </sap:WorkflowViewStateService.ViewState>
-            </ui:ReadTextFile>
-            <ui:ReadTextFile File="{x:Null}" Content="[text2]" DisplayName="Read Text File" FileName="[File_Log(1)]" sap:VirtualizedContainerService.HintSize="470,112" sap2010:WorkflowViewState.IdRef="ReadTextFile_5">
-              <sap:WorkflowViewStateService.ViewState>
-                <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                </scg:Dictionary>
-              </sap:WorkflowViewStateService.ViewState>
-            </ui:ReadTextFile>
-            <Assign sap:VirtualizedContainerService.HintSize="470,114" sap2010:WorkflowViewState.IdRef="Assign_9">
-              <Assign.To>
-                <OutArgument x:TypeArguments="x:Int32">[NombreLigne_File1]</OutArgument>
-              </Assign.To>
-              <Assign.Value>
-                <InArgument x:TypeArguments="x:Int32">[Text1.split(vbNewLine.ToCharArray).Count]</InArgument>
-              </Assign.Value>
-              <sap:WorkflowViewStateService.ViewState>
-                <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                </scg:Dictionary>
-              </sap:WorkflowViewStateService.ViewState>
-            </Assign>
-            <Assign sap:VirtualizedContainerService.HintSize="470,114" sap2010:WorkflowViewState.IdRef="Assign_10">
-              <Assign.To>
-                <OutArgument x:TypeArguments="x:Int32">[NombreLigne_File2]</OutArgument>
-              </Assign.To>
-              <Assign.Value>
-                <InArgument x:TypeArguments="x:Int32">[Text2.split(vbNewLine.ToCharArray).Count]</InArgument>
-              </Assign.Value>
-              <sap:WorkflowViewStateService.ViewState>
-                <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                </scg:Dictionary>
-              </sap:WorkflowViewStateService.ViewState>
-            </Assign>
-            <Assign sap:VirtualizedContainerService.HintSize="470,114" sap2010:WorkflowViewState.IdRef="Assign_11">
-              <Assign.To>
-                <OutArgument x:TypeArguments="x:String">[Selected_File]</OutArgument>
-              </Assign.To>
-              <Assign.Value>
-                <InArgument x:TypeArguments="x:String">[if(NombreLigne_File1&gt;NombreLigne_File2,File_Log(0),File_Log(1))]</InArgument>
-              </Assign.Value>
-              <sap:WorkflowViewStateService.ViewState>
-                <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                </scg:Dictionary>
-              </sap:WorkflowViewStateService.ViewState>
-            </Assign>
-            <ui:ReadTextFile File="{x:Null}" Content="[Log_Text]" DisplayName="Read Text File" FileName="[Selected_File]" sap:VirtualizedContainerService.HintSize="470,112" sap2010:WorkflowViewState.IdRef="ReadTextFile_6" />
-            <ui:ForEach x:TypeArguments="x:String" CurrentIndex="[CurrentIndex]" DisplayName="For Each currentText" sap:VirtualizedContainerService.HintSize="470,292" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[in_NomFichier.split(&quot;,&quot;c)]">
+            </ui:CommentOut>
+            <ui:ForEach x:TypeArguments="x:String" CurrentIndex="[CurrentIndex]" DisplayName="For Each currentText" sap:VirtualizedContainerService.HintSize="506,1922" sap2010:WorkflowViewState.IdRef="ForEach`1_3" Values="[in_NomFichier_Liquidity.split(&quot;,&quot;c)]">
               <ui:ForEach.Body>
                 <ActivityAction x:TypeArguments="x:String">
                   <ActivityAction.Argument>
                     <DelegateInArgument x:TypeArguments="x:String" Name="currentText" />
                   </ActivityAction.Argument>
-                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="416,171" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="504,1801" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                    <Sequence.Variables>
+                      <Variable x:TypeArguments="x:String" Name="Text_File" />
+                      <Variable x:TypeArguments="x:String" Name="Statut_ExistenceFichierKondor" />
+                      <Variable x:TypeArguments="x:String" Name="Statut_NombreLigne_FichierKondor" />
+                      <Variable x:TypeArguments="x:Int32" Name="NombreLigne_Table" />
+                      <Variable x:TypeArguments="x:String" Name="Statut_NombreLigne_Database" />
+                      <Variable x:TypeArguments="x:String" Name="Position_Text" />
+                    </Sequence.Variables>
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
-                    <ui:ExcelWriteCell Cell="[&quot;H&quot; + (6+CurrentIndex).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="382,111" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_4" SheetName="Rapport" Text="[If(If(String.IsNullOrEmpty(Log_Text.ToLower.split(&quot;starting copy...&quot;)(0).Trim),Log_Text.ToLower.split(&quot;starting copy...&quot;).Skip(1),Log_Text.ToLower.split(&quot;starting copy...&quot;))(CurrentIndex).split(vbnewline.ToCharArray).count=6,&quot;OK&quot;,&quot;NOK&quot;)]" />
+                    <ui:FileExistsX DisplayName="File Exists" Exists="[Fichier_Kondor_Existe]" sap:VirtualizedContainerService.HintSize="470,165" sap2010:WorkflowViewState.IdRef="FileExistsX_2" Path="[in_chemin_Archive_Liquidity.TrimEnd(&quot;\&quot;c) + &quot;\&quot; + in_date_JJMMYYYY + &quot;\&quot; +in_Config(currentText).ToString + &quot;_TMP_HD.bcp&quot;]" />
+                    <Assign sap:VirtualizedContainerService.HintSize="470,114" sap2010:WorkflowViewState.IdRef="Assign_12">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[Statut_ExistenceFichierKondor]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">[if(Fichier_Kondor_Existe,"OK","NOK")]</InArgument>
+                      </Assign.Value>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </Assign>
+                    <If Condition="[Fichier_Kondor_Existe]" sap:VirtualizedContainerService.HintSize="470,580" sap2010:WorkflowViewState.IdRef="If_2">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <If.Then>
+                        <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="468,277" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:ReadTextFile File="{x:Null}" Content="[Text_File]" DisplayName="Read Text File" FileName="[in_chemin_Archive_Liquidity.TrimEnd(&quot;\&quot;c) + &quot;\&quot; + in_date_JJMMYYYY + &quot;\&quot; +in_config(currentText).ToString+ &quot;_TMP_HD.bcp&quot;]" sap:VirtualizedContainerService.HintSize="434,112" sap2010:WorkflowViewState.IdRef="ReadTextFile_7" />
+                          <Assign sap:VirtualizedContainerService.HintSize="434,105" sap2010:WorkflowViewState.IdRef="Assign_13">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="x:String">[Statut_NombreLigne_FichierKondor]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="x:String">[if(String.IsNullOrEmpty(Text_File.trim),"0",Text_File.trim.split(vbNewLine.ToCharArray).count.ToString)]</InArgument>
+                            </Assign.Value>
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </Assign>
+                        </Sequence>
+                      </If.Then>
+                      <If.Else>
+                        <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="468,165" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <Assign sap:VirtualizedContainerService.HintSize="434,105" sap2010:WorkflowViewState.IdRef="Assign_15">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="x:String">[Statut_NombreLigne_FichierKondor]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="x:String">0</InArgument>
+                            </Assign.Value>
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </Assign>
+                        </Sequence>
+                      </If.Else>
+                    </If>
+                    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Requete_BaseDonnees_Liquidity - Invoke Workflow File (Requete_BaseDonnees_Liquidity.xaml)" sap:VirtualizedContainerService.HintSize="470,177" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="Requete_BaseDonnees_Liquidity.xaml">
+                      <ui:InvokeWorkflowFile.Arguments>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_DataBase_Table">[in_config("Table_Liquidity").ToString]</InArgument>
+                        <OutArgument x:TypeArguments="x:Int32" x:Key="out_Count">[NombreLigne_Table]</OutArgument>
+                        <InArgument x:TypeArguments="ui:DatabaseConnection" x:Key="in_Connexion">[Database_Connexion]</InArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_Date_JJMMYYYY">[in_Date_JJ_MM_YYYY]</InArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_Folder">[currentText]</InArgument>
+                      </ui:InvokeWorkflowFile.Arguments>
+                    </ui:InvokeWorkflowFile>
+                    <Assign sap:VirtualizedContainerService.HintSize="470,114" sap2010:WorkflowViewState.IdRef="Assign_14">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[Statut_NombreLigne_Database]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">[NombreLigne_Table.ToString]</InArgument>
+                      </Assign.Value>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </Assign>
+                    <ui:ExcelLookUpRange DisplayName="Lookup Range" sap:VirtualizedContainerService.HintSize="470,120" sap2010:WorkflowViewState.IdRef="ExcelLookUpRange_2" Range="D1:D100" Result="[Position_Text]" SheetName="Rapport" Value="[currentText]" />
+                    <ui:ExcelWriteCell Cell="[&quot;E&quot; + (Cint(Position_Text.replace(&quot;D&quot;,&quot;&quot;))).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="470,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_6" SheetName="Rapport" Text="[Statut_ExistenceFichierKondor]" />
+                    <ui:ExcelWriteCell Cell="[&quot;F&quot; + (Cint(Position_Text.replace(&quot;D&quot;,&quot;&quot;))).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="470,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_7" SheetName="Rapport" Text="[Statut_NombreLigne_FichierKondor]" />
+                    <ui:ExcelWriteCell Cell="[&quot;G&quot; + (Cint(Position_Text.replace(&quot;D&quot;,&quot;&quot;))).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="470,120" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_8" SheetName="Rapport" Text="[Statut_NombreLigne_Database]" />
+                    <ui:ExcelWriteCell Cell="[&quot;H&quot; + (Cint(Position_Text.replace(&quot;D&quot;,&quot;&quot;))).ToString]" DisplayName="Write Cell" sap:VirtualizedContainerService.HintSize="470,111" sap2010:WorkflowViewState.IdRef="ExcelWriteCell_9" SheetName="Rapport" Text="[if(Statut_NombreLigne_FichierKondor=Statut_NombreLigne_Database and not (NombreLigne_Table = 0),&quot;OK&quot;,&quot;NOK&quot;)]" />
                   </Sequence>
                 </ActivityAction>
               </ui:ForEach.Body>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
             </ui:ForEach>
           </Sequence>
         </ActivityAction>
       </ui:ExcelApplicationScope.Body>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
-          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           <x:Boolean x:Key="IsPinned">False</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:ExcelApplicationScope>
-    <ui:SendOutlookMail Bcc="{x:Null}" Cc="{x:Null}" ContinueOnError="{x:Null}" MailMessage="{x:Null}" ReplyTo="{x:Null}" TimeoutMS="{x:Null}" Account="[in_Config(&quot;Mail_Sender&quot;).ToString]" Body="[in_Config(&quot;Corps_Mail&quot;).ToString.replace(&quot;[DATE]&quot;,in_Date_JJ_MM_YYYY)]" DisplayName="Send Outlook Mail Message" sap:VirtualizedContainerService.HintSize="416,184" sap2010:WorkflowViewState.IdRef="SendOutlookMail_1" Importance="Normal" IsBodyHtml="False" IsDraft="False" Sensitivity="Normal" Subject="[in_Config(&quot;Objet_Mail&quot;).ToString.Replace(&quot;[DATE]&quot;,in_Date_JJ_MM_YYYY)]" To="[in_Config(&quot;Mail_Metier&quot;).ToString]" UseISConnection="True">
+    <ui:SendOutlookMail Bcc="{x:Null}" Cc="{x:Null}" ContinueOnError="{x:Null}" MailMessage="{x:Null}" ReplyTo="{x:Null}" TimeoutMS="{x:Null}" Account="[in_Config(&quot;Mail_Sender&quot;).ToString]" Body="[in_Config(&quot;Corps_Mail&quot;).ToString.replace(&quot;[DATE]&quot;,in_Date_JJ_MM_YYYY)]" DisplayName="Send Outlook Mail Message" sap:VirtualizedContainerService.HintSize="574,184" sap2010:WorkflowViewState.IdRef="SendOutlookMail_1" Importance="Normal" IsBodyHtml="False" IsDraft="False" Sensitivity="Normal" Subject="[in_Config(&quot;Objet_Mail&quot;).ToString.Replace(&quot;[DATE]&quot;,in_Date_JJ_MM_YYYY)]" To="[in_Config(&quot;Mail_Metier&quot;).ToString]" UseISConnection="True">
       <ui:SendOutlookMail.ConnectionDetailsBackupSlot>
         <usau:BackupSlot x:TypeArguments="umae:ConnectionDetails" StoredValue="{x:Null}">
           <usau:BackupSlot.BackupValues>
@@ -378,12 +573,10 @@
       </ui:SendOutlookMail.ConnectionDetailsBackupSlot>
       <ui:SendOutlookMail.Files>
         <scg:List x:TypeArguments="InArgument(x:String)" Capacity="4">
-          <InArgument x:TypeArguments="x:String">
-            <VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_Chemin_Archive.TrimEnd(&quot;\&quot;c) + &quot;\&quot; + in_date_JJMMYYYY + &quot;\Rapport &quot; + in_date_JJMMYYYY + &quot;.xlsx&quot;" />
-          </InArgument>
+          <InArgument x:TypeArguments="x:String">[in_Chemin_Archive.TrimEnd("\"c) + "\" + in_date_JJMMYYYY + "\Rapport " + in_date_JJMMYYYY + ".xlsx"]</InArgument>
         </scg:List>
       </ui:SendOutlookMail.Files>
     </ui:SendOutlookMail>
-    <ui:Comment DisplayName="Comment (placeholder)" sap:VirtualizedContainerService.HintSize="416,79" sap2010:WorkflowViewState.IdRef="Comment_1" Text="//  Invoke steps of the process" />
+    <ui:Comment DisplayName="Comment (placeholder)" sap:VirtualizedContainerService.HintSize="574,79" sap2010:WorkflowViewState.IdRef="Comment_1" Text="//  Invoke steps of the process" />
   </Sequence>
 </Activity>
